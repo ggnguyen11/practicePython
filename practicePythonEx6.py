@@ -12,4 +12,3 @@ if backword == stringtest:
 # alternative solution: use else instead of elif
 elif backword != stringtest:
     print("Your string is not a palindrome!")
-

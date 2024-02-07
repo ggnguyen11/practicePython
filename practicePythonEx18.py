@@ -7,13 +7,37 @@
 
 import random
 
-count = 0
-def main():
+# function to generate a 4-digit random number as a string
+def gen_answer():
     numstr = ''
-    guess = int(input("Let's play cows and bulls!\n" + "Can you guess the " +\
-                      "4-digit number I an thinking of?\n"))
     for i in range(4):
         numstr += str(random.randint(0, 9))
-    print(numstr)
+    return numstr
+
+# initializing count and assigning the random 4-digit number to a variable
+# so as to be "immutable" for other functions
+count = 0
+answer = gen_answer()
+
+def main(count):
+    guess = int(input("Let's play cows and bulls!\n" + "Can you guess the " +\
+                      "4-digit number I an thinking of?\n"))
+    while guess != int(answer):
+        count += 1
+        if guess == int(answer):
+            print("You win!\n" + "You've guessed " + str(count) + " times.")
+            return main()
+        elif len(str(guess)) < 4:
+            print("\nInvalid number.\n" + "Please guess a 4-digit number.\n"\
+                  + "\nGuesses: " + str(count))
+            return main(count)
+
+def cows(guess, numstr):
+    num_cows = ''
+    pass
+
+def bulls():
+    pass
+
 if __name__ == "__main__":
-    main()
+    main(count)

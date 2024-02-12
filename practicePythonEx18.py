@@ -25,34 +25,32 @@ def main(count):
     while guess != int(answer):
         count += 1
         print(answer)
-        print("You have: " + str(num_cows(guess)) + " cows.")
         if guess == int(answer):
             print("You win!\n" + "You've guessed " + str(count) + " times.")
         elif len(str(guess)) < 4:
             print("\nInvalid number.\n" + "Please guess a 4-digit number.\n"\
                   + "\nGuesses: " + str(count))
             return main(count)
+        else:
+            print('You have ' + str(num_cows(guess)) + ' cows.')
+            return main(count)
 
-# function to return number of cows from given guess, initializing guessL list
+# function to return number of cows from given guess, initializing guess list
 # for appending -- str conversion for iteration and int conversion to append
 def num_cows(guess):
     cows = 0
-    guessL = []
     guess_str = str(guess)
-    for char in guess_str:
-        digit = int(char)
-        guessL.append(digit)
-
-    if guessL[0] == answer[0]:
+    if guess_str[0] == answer[0]:
         cows = 1
-    elif guessL[0] == answer[0] and guessL[1] == answer[1]:
+    elif guess_str[0] == answer[0] and guess_str[1] == answer[1]:
         cows = 2
-    elif guessL[0] == answer[0] and guessL[1] == answer[1] and \
-    guessL[2] == answer[2]:
+    elif guess_str[0] == answer[0] and guess_str[1] == answer[1] and \
+        guess_str[2] == answer[2]:
         cows = 3
-    elif guessL[0] == answer[0] and guessL[1] == answer[1] and \
-    guessL[2] == answer[2] and guessL[3] == answer[3]:
+    elif guess_str[0] == answer[0] and guess[1] == answer[1] and \
+        guess[2] == answer[2] and guess[3] == answer[3]:
         cows = 4
+    return cows
 
 def num_bulls(guess):
     bulls = 0

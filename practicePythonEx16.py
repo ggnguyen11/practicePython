@@ -47,10 +47,11 @@ def avg_pass():
     return apass
 
 def strong_pass():
-    spass = []
+    spass = ''
 # list of special characters allowed for use in passwords
     spchar = string.punctuation
-    for i in range(random.randint(12, 18)):
+# range for 9-18 characters
+    for i in range(random.randint(3, 6)):
 # function to generate random strings composed of both lower/uppercase,
 # numbers, and special characters
         spass += random.choice(string.ascii_letters)

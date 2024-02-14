@@ -1,4 +1,4 @@
-# ex18 solution
+# ex18 solution, per practicepython.org
 import random
 
 def compare_numbers(number, user_guess):

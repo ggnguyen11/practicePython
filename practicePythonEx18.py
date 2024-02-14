@@ -46,6 +46,8 @@ def get_cowsnbulls(guess):
     cows = 0
     i = 0
     guess_str = str(guess)
+# no need to account for duplicate instances as there will only
+# be one occurence per loop iteration
     while i < 4:
         if guess_str[i] == answer[i]:
             cows += 1

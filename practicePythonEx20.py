@@ -25,12 +25,20 @@ def num_inlist():
     else:
         return False
 
-print(num_inlist())
+#print(num_inlist())
 
 # solution w/ binary search
+def list_halver(Lst):
+    halved_list = round(len(Lst) / 2)
+    return int(halved_list)
+
 def num_inlist_binary():
+    midpoint = ordered_randlist[list_halver(ordered_randlist)]
+    list_half = []
     num = int(input("I will randomly generate an ordered list of numbers.\n" \
         + "Please provide a number to be checked if it is in the list.\n"))
-    for i in range(len(ordered_randlist) + 1):
-        while ordered_randlist[i] != num:
-            
+    if num < midpoint:
+        list_half = ordered_randlist[0:list_halver(ordered_randlist)]
+        midpoint = ordered_randlist[list_halver(list_half)]
+
+#print(num_inlist_binary())

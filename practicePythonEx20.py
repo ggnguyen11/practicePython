@@ -27,18 +27,26 @@ def num_inlist():
 
 #print(num_inlist())
 
-# solution w/ binary search
+# solution w/ binary search, list_halver() function to determine middle of
 def list_halver(Lst):
     halved_list = round(len(Lst) / 2)
     return int(halved_list)
 
 def num_inlist_binary():
-    midpoint = ordered_randlist[list_halver(ordered_randlist)]
+    midpoint = list_halver(ordered_randlist)
+    median = ordered_randlist[midpoint]
     list_half = []
     num = int(input("I will randomly generate an ordered list of numbers.\n" \
         + "Please provide a number to be checked if it is in the list.\n"))
-    if num < midpoint:
-        list_half = ordered_randlist[0:list_halver(ordered_randlist)]
+    if num < median:
+        list_half = ordered_randlist[0:midpoint]
         midpoint = ordered_randlist[list_halver(list_half)]
+        return num_inlist_binary()
+    elif num > median:
+        list_half = ordered_randlist[midpoint:-1]
+        midpoint = ordered_randlist[list_halver(list_half)]
+        return num_inlist_binary()
+    elif num == median:
+        return True
 
 #print(num_inlist_binary())

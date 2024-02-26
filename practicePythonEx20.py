@@ -32,6 +32,7 @@ def list_halver(Lst):
     halved_list = round(len(Lst) / 2)
     return int(halved_list)
 
+# try pass variables through function or use global variables?
 def num_inlist_binary():
     midpoint = list_halver(ordered_randlist)
     median = ordered_randlist[midpoint]

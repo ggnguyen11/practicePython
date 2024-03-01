@@ -59,7 +59,8 @@ def num_inlist_binary(lst):
             newlist = lst[0:mid]
             return num_inlist_binary(newlist)
         elif binary_num > median:
-            newlist = lst[mid:len(lst) - 1]
+            newlist = lst[mid:len(lst)]
+            print(newlist)
             return num_inlist_binary(newlist)
 
 print(num_inlist_binary(ordered_randlist))

@@ -31,6 +31,7 @@ def num_inlist():
 # solution w/ binary search, w/ functions to determine halves of given list
 # midpoint function
 def midpoint(lst):
+# math.floor() function to round down
     mid = int(math.floor((len(lst) - 1) / 2))
     return mid
 
@@ -40,27 +41,42 @@ binary_num = int(input("I will randomly generate an ordered list of numbers." \
 
 # function implementing binary search, using median as a conditional
 def num_inlist_binary(lst):
+# print statement to display list for each iteration
     print(lst)
     mid = midpoint(lst)
     median = lst[mid]
-    print("median: " + str(median))
-    while mid >= 1:
+# print statements for debugging
+    #print("median: " + str(median))
+    #print("mid: " + str(mid))
+# conditionals to test for match case when the list has only two elements
+    if mid == 1 and median == lst[1] and binary_num == median:
+        print(str(binary_num) + " is within the generated list:\n" + \
+              str(ordered_randlist))
+        return True
+    elif mid == 1 and binary_num != median:
+        print(str(binary_num) + " is not within the generated list:\n" + \
+                str(ordered_randlist))
+        return False
+# conditionals for when the list has more than two elements
+    while mid > 1:
         if binary_num == median:
-            print("mid: " + str(mid))
+            #print("mid: " + str(mid))
             print(str(binary_num) + " is within the generated list:\n" + \
                 str(ordered_randlist))
             return True
-        elif mid == 1:
-            print("mid: " + str(mid))
+        elif mid == 0 and len(lst) == 1:
+            #print("mid: " + str(mid))
             print(str(binary_num) + " is not within the generated list:\n" + \
                 str(ordered_randlist))
             return False
+# reminder that if/elif statements evaluate in pairs
         if binary_num < median:
+# first half of the list up until the midpoint
             newlist = lst[0:mid]
             return num_inlist_binary(newlist)
         elif binary_num > median:
+# other half of the list, starting at the midpoint until the endpoint
             newlist = lst[mid:len(lst)]
-            print(newlist)
             return num_inlist_binary(newlist)
 
 print(num_inlist_binary(ordered_randlist))

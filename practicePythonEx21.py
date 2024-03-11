@@ -4,17 +4,26 @@
 
 # solution from ex17 to parse website
 import requests
-import re
-
 from bs4 import BeautifulSoup
 
+# storing website's HTML in a variable
 url = 'https://www.nytimes.com'
+
+# response object that store's server's response to HTTP request
 r = requests.get(url)
-r_html = r.text
 
-soup = BeautifulSoup(r_html, 'html.parser')
-pattern = re.compile(r'indicate-hover')
+# r.text w/ HTML content to be parsed by BeautifulSoup
+soup = BeautifulSoup(r.text, 'html.parser')
 
-matchedElements = soup.find_all(attrs={'class': pattern})
-for element in matchedElements:
-    print(element)
+def headingPrinter(stew):
+# find all matches w/ specified string pattern, iterate through each
+# and print to line, stripping newlines and whitespaces
+    for heading in stew.find_all(class_="indicate-hover"):
+        if heading.a:
+            print(heading.a.text.replace("\n", " ").strip())
+        else:
+            print(heading.contents[0].strip())
+
+finalSoup = headingPrinter(soup)
+
+print(finalSoup)

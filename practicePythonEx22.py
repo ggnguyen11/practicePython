@@ -5,5 +5,8 @@
 # many of each "category" of each image there are. +string parsing
 
 # opening a file for reading; like opening for writing but w/ different flag
-with open('nytimesHeadings.txt', 'r') as open_file:
-    content = open_file.read()
+with open('ex22Base.txt', 'r') as open_file:
+    line = open_file.readline()
+    while line:
+        print(line)
+        line = open_file.readline()

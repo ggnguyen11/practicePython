@@ -29,4 +29,8 @@ nameCount["Darth"], nameCount["Luke"], nameCount["Lea"] = Darth, Luke, Lea
 
 print(nameCount)
 
-# extra 
+# extra
+#with open('ex22Extra.txt', 'r') as extra_file:
+#    nline = extra_file.readline()
+#    while nline:
+#        print(nline[3])

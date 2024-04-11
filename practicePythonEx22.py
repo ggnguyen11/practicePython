@@ -29,8 +29,19 @@ nameCount["Darth"], nameCount["Luke"], nameCount["Lea"] = Darth, Luke, Lea
 
 print(nameCount)
 
+categories = {}
 # extra
-#with open('ex22Extra.txt', 'r') as extra_file:
-#    nline = extra_file.readline()
-#    while nline:
-#        print(nline[3])
+with open('ex22Extra.txt', 'r') as extra_file:
+    nline = extra_file.readline()
+    while nline:
+# reading only from the first / to the 2nd /, counting backwards from the last
+# char
+        nline = nline[3:-26]
+# assigning dictionary key:pair values based on conditionals
+        if nline in categories:
+            categories[nline] += 1
+        else:
+            categories[nline] = 1
+        nline = extra_file.readline()
+
+print(categories)

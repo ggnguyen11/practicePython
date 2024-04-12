@@ -1,3 +1,4 @@
+# practicepython.org | exercise 21
 # using code from ex17 solution, print the results to a txt file instead of
 # printing to the screen; make up a name for the file you are saving to
 # extra: ask user to specify name of the output file that will be saved

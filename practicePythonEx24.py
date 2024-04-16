@@ -2,10 +2,13 @@
 # "pt 1 of 4 in tic tac toe" series, ask user for the size of the game board
 # and print that to the screen, using functions**
 
-#
+# function to display the graphics of the matrix, using number of rows and
+# columns as inputs, initializing horizontal and vertical with the starting
+# symbols at the far left of the matrix
 def board(rows, columns):
     horizontal = ' '
     vertical = '|'
+# += statement to append to the end of string
     for n in range(columns):
         horizontal += '--- '
     for m in range(columns):
@@ -15,6 +18,8 @@ def board(rows, columns):
         print(vertical)
     print(horizontal)
 
+# function to obtain dimensions of the game board to pipe into the board()
+# function above
 def dimensions():
     rows = int(input("Let's make a game board!\n" + "Please specify its "\
         + "dimensions.\n" + "Rows: "))

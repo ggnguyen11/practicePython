@@ -44,7 +44,10 @@ def move_checker(game_state):
     game_state[1][2] == 1 and game_state[2][2] == 1) or \
     (game_state[2][0] == 1 and game_state[2][1] == 1 and \
     game_state[2][2] == 1) or (game_state[0][2] == 1 and \
-    game_state[1][1] == 1 and game_state[2][0] == 1):
+    game_state[1][1] == 1 and game_state[2][0] == 1) or \
+    (game_state[0][1] == 1 and game_state[1][1] == 1 and \
+    game_state[2][1] == 1) or (game_state[1][0] == 1 and \
+    game_state[1][1] == 1 and game_state[1][2]) == 1:
         print("\nPlayer 1 wins!\n\n")
     elif (game_state[0][0] == 2 and game_state[0][1] == 2 and \
     game_state[0][2] == 2) or (game_state[0][0] == 2 and \
@@ -54,7 +57,10 @@ def move_checker(game_state):
     game_state[1][2] == 2 and game_state[2][2] == 2) or \
     (game_state[2][0] == 2 and game_state[2][1] == 2 and \
     game_state[2][2] == 2) or (game_state[0][2] == 2 and \
-    game_state[1][1] == 2 and game_state[2][0] == 2):
+    game_state[1][1] == 2 and game_state[2][0] == 2) or \
+    (game_state[0][1] == 2 and game_state[1][1] == 2 and \
+    game_state[2][1] == 2) or (game_state[1][0] == 2 and \
+    game_state[1][1] == 2 and game_state[1][2]) == 2:
         print("\nPlayer 2 wins!\n\n")
     else:
         print("\nNo winners for this game state.\n\n")

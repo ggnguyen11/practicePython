@@ -7,11 +7,14 @@
 
 # function to reset game state
 def clear_board():
-    return([[' ', ' ', ' '], \
+# modifying global variable game matrix
+    global game
+    game = [[' ', ' ', ' '], \
             [' ', ' ', ' '], \
-            [' ', ' ', ' ']])
+            [' ', ' ', ' ']]
+    return(game)
 
-# initial game state matrix
+# clean game state matrix
 game = clear_board()
 
 # initializing win count
@@ -23,7 +26,7 @@ print("\nLet's play Tic Tac Toe!\nPlayer 1 (X) - your move.\n\n" + \
         "Please enter the coordinates of the space where you'd like to " + \
         "place a move.\n(Format: (row,col) with range (1,1) to (3,3))")
 
-# board() function from exercise 24, refactored
+# board() function from exercise 24, refactored to show active moves
 def board():
     print(' --- --- --- ')
     print('| '+ game[0][0] + ' |' + ' '+ game[0][1] + ' ' + '| '+ game[0][2] \
@@ -38,11 +41,18 @@ def board():
 
 # function to replay game
 def repeat_game(winner):
-    repeat = input("The game has ended. " + winner + " wins!\nPlayer 1 " + \
+    repeat = input("The game has ended. " + winner + " wins!\n\nPlayer 1 " + \
         "wins: " + str(p1_wins) + "\nPlayer 2 wins: " + str(p2_wins) + \
-        "Would you like to play again? (Y/N)\n")
+        "\n\nWould you like to play again? (Y/N)\n")
     # repeat game
-    return(repeat.lower())
+    if repeat.lower() == 'y':
+        clear_board()
+        player_moves('X')
+        return repeat.lower()
+    elif repeat.lower() == 'n':
+        print("Score:\nPlayer 1: " + str(p1_wins) + "\nPlayer 2: " + \
+        str(p2_wins))
+        return repeat.lower()
 
 # player_moves() function from exercise 27, to determine placement of moves
 def player_moves(player):
@@ -98,21 +108,33 @@ def player_moves(player):
                 game[int(move[0]) - 1][int(move[1]) - 1] = 'O'
                 board()
                 player_moves('X')
-    # when all spaces are occupied
-    replay = input("There are no winners for this game state.\n" + \
-    "Player 1 wins: " + str(p1_wins) + "\nPlayer 2 wins: " + \
-    str(p2_wins) + "\nPlay again? (Y\N)\n")
+    # when all spaces are occupied, but there are no winners
+    replay = input("There are no winners for this game state.\n\n" + \
+    "Player 1 wins: " + str(p1_wins) + "\nPlayer 2 wins: " + str(p2_wins) + \
+    "\n\nPlay again? (Y/N)\n")
     if replay.lower() == 'y':
+        clear_board()
         player_moves('X')
     elif replay.lower() == 'n':
-        pass
+        print("\nGame over!")
+# terminates execution of program
+        exit()
 
 game_winner = player_moves('X')
 
-# updating win count
+# updating win count outside of while loop when repeat_game() returns 'n'
 if game_winner == 'Player 1':
     p1_wins += 1
-    repeat_game(game_winner)
 elif game_winner == 'Player 2':
     p2_wins += 1
-    repeat_game(game_winner)
+# repeating game so long as repeat_game() function returns 'y'
+while repeat_game(game_winner) == 'y':
+    if game_winner == 'Player 1':
+        p1_wins += 1
+        repeat_game(game_winner)
+    elif game_winner == 'Player 2':
+        p2_wins += 1
+        repeat_game(game_winner)
+    else:
+        print("Game over!\n")
+        break

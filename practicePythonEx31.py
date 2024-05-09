@@ -6,26 +6,17 @@
 # extra: keep track of letters guessed and display a different message
 # for duplicate guesses
 
-# notes: try to use a dictionary to store and access sample letters
-# instead of unordered lists/sets
-
 sample = 'EVAPORATE'
-# initializing dictionary
-letters = {}
 # initializing list for guesses
 correctLetters = []
 guessedLetters = []
 count = 0
 
-# takes the word and appends the letter index:letter as a key:pair element
-# to a dictionary 
+# takes the word and appends its letters to a list
 def speller(word):
     length = len(word)
     for char in range(length):
         correctLetters.append(word[char])
-        letters[char] = word[char]
-#    print(letters)
-    return letters
 
 # displays missing spaces for each character in the given word
 def guess_bar(word):
@@ -37,27 +28,42 @@ def guess_bar(word):
 # checks for guesses and occupied spaces
 def matcher(count):
     while '_' in bar:
-        guess = input("Please guess a letter:\n")
-        guess = guess.upper()
+        guess = input("Please guess a letter:\n").upper()
+        print(guess)
         if guess in correctLetters and guess not in guessedLetters:
             count += 1
             guessedLetters.append(guess)
-            print("Guesses: " + str(count))
+            print("\nGuesses: " + str(count) + "\n")
+            print("Guessed letters:\n" + str(guessedLetters) + "\n")
 # replaces bar space with letter
-            printBar(guessedLetters)
+            printBar(guess)
         elif guess in guessedLetters:
             count += 1
             print("That letter has already been guessed.\n" + "Guesses: " + \
             str(count) + "\n")
+            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            print(bar)
             return matcher(count)
+        elif guess not in correctLetters:
+            count += 1
+            guessedLetters.append(guess)
+            print("\nGuesses: " + str(count) + "\n")
+            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            print(bar)
+    print("Congratulations! You guessed the correct word in " + \
+    str(count) + " guesses.")
+    return count
 
-def printBar(guesses):
-    for char in guesses:
-        if guesses[char] in correctLetters:
-            bar[char] = correctLetters[char]
+# checks to see if guess is within the list of correct letters, then replaces
+# empty space with the guess
+def printBar(guess):
+# range(len(correctLetters)) for index value instead of char value
+    for char in range(len(correctLetters)):
+# if value of guess is the correct letter for position of index, change space
+        if correctLetters[char] == guess:
+            bar[char] = guess
     print(bar)
 
 letters = speller(sample)
-
 bar = guess_bar(sample)
 matcher(count)

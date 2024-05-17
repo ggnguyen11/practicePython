@@ -13,6 +13,8 @@
 # pt 1/3, which chooses a random word from the SOWPODS dictionary
 import random
 
+# appends list with all words within input .txt file, then uses
+# random.choice() to pick a word from the list for hangman
 def choose_word(textFile):
     word = []
     with open(textFile, 'r') as f:
@@ -40,8 +42,55 @@ def speller(word):
 # displays missing spaces for each character in the given word
 def guess_bar(word):
     bar = []
-    for char in word:
+    for char in range(len(word) - 1):
         bar.append('_')
     return bar
 
 # checks for guesses and occupied spaces
+def matcher(count):
+# game over
+    while '_' in bar:
+        guess = input("Please guess a letter:\n").upper()
+        print(guess)
+        if count == 5:
+            print("Maximum amount of guesses exceeded. Game over!")
+            print(sampleWord)
+            return count
+        if guess in correctLetters and guess not in guessedLetters:
+            count += 1
+            guessedLetters.append(guess)
+            print("\nGuesses: " + str(count) + "\n")
+            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+# replaces bar space with letter
+            printBar(guess)
+        elif guess in guessedLetters:
+            print("That letter has already been guessed.\n" + "Guesses: " + \
+            str(count) + "\n")
+            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            print(bar)
+            return matcher(count)
+        elif guess not in correctLetters:
+            count += 1
+            guessedLetters.append(guess)
+            print("\nGuesses: " + str(count) + "\n")
+            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            print(bar)
+# while all spaces are occupied
+    print("Congratulations! You guessed the correct word in " + \
+    str(count) + " guesses.")
+    print(sampleWord)
+    return count
+
+# checks to see if guess is within the list of correct letters, then replaces
+# empty space with the guess
+def printBar(guess):
+# range(len(correctLetters)) for index value instead of char value
+    for char in range(len(correctLetters)):
+# if value of guess is the correct letter for position of index, change space
+        if correctLetters[char] == guess:
+            bar[char] = guess
+    print(bar)
+
+letters = speller(sampleWord)
+bar = guess_bar(sampleWord)
+matcher(count)

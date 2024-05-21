@@ -175,3 +175,23 @@ def clear_hangman():
 letters = speller(sampleWord)
 bar = guess_bar(sampleWord)
 matcher(count)
+
+# simpler function for printing output bar - solution from practicepython.org
+
+#def generate_word_string(word, letters_guessed):
+#	output = []
+#	for letter in word:
+#		if letter in letters_guessed:
+#			output.append(letter.upper())
+#		else:
+#			output.append("_")
+#	return " ".join(output)
+
+# conditionals for .add() & .remove() methods for sets instead of lists
+
+#if guess in letters_to_guess:
+#	letters_to_guess.remove(guess)
+#	correct_letters_guessed.add(guess)
+#else:
+#	incorrect_letters_guessed.add(guess)
+#	num_guesses += 1

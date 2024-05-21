@@ -46,39 +46,71 @@ def guess_bar(word):
         bar.append('_')
     return bar
 
+# function to clear and replay hangman game
+def restart(replay):
+# global variables to be reinitialized upon replay
+    global correctLetters, guessedLetters, bar, count, sampleWord, letters
+    if replay == 'y':
+        correctLetters = []
+        guessedLetters = []
+        bar = []
+        count = 0
+# reloading game state with new word
+        sampleWord = choose_word('sowpods.txt')
+        letters = speller(sampleWord)
+        bar = guess_bar(sampleWord)
+        clear_hangman()
+        matcher(count)
+    else:
+        return replay
+
 # checks for guesses and occupied spaces
 def matcher(count):
-# game over
     while '_' in bar:
+        #print("Count: " + str(count) + '\n')
         guess = input("Please guess a letter:\n").upper()
-        print(guess)
-        if count == 5:
-            print("Maximum amount of guesses exceeded. Game over!")
-            print(sampleWord)
-            return count
-        if guess in correctLetters and guess not in guessedLetters:
+# game over condition
+        if count == 5 and guess not in correctLetters and guess not in \
+        guessedLetters:
             count += 1
+            print("Maximum amount of guesses exceeded. Game over!")
+# hangman() for visualization
+            hangman(count)
+            print("The correct word was: " + sampleWord)
+# restart function
+            replay = input("Would you like to play again? (Y/N)\n").lower()
+            restart(replay)
+            return count
+        elif guess in correctLetters and guess not in guessedLetters:
+# 6 - count for remaining guesses until game over
             guessedLetters.append(guess)
-            print("\nGuesses: " + str(count) + "\n")
-            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            #print("Chances: " + str(6 - count))
+            print("Guessed letters:\n" + str(guessedLetters))
+            hangman(count)
 # replaces bar space with letter
             printBar(guess)
         elif guess in guessedLetters:
-            print("That letter has already been guessed.\n" + "Guesses: " + \
-            str(count) + "\n")
-            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            print("That letter has already been guessed.\n" + "Chances: " + \
+            str(6 - count))
+            print("Guessed letters:\n" + str(guessedLetters))
+            hangman(count)
             print(bar)
             return matcher(count)
-        elif guess not in correctLetters:
+        elif guess not in correctLetters and guess not in guessedLetters:
             count += 1
             guessedLetters.append(guess)
-            print("\nGuesses: " + str(count) + "\n")
-            print("Guessed letters:\n" + str(guessedLetters) + "\n")
+            #print("Chances: " + str(6 - count))
+            print("Guessed letters:\n" + str(guessedLetters))
+            hangman(count)
             print(bar)
 # while all spaces are occupied
-    print("Congratulations! You guessed the correct word in " + \
-    str(count) + " guesses.")
-    print(sampleWord)
+    print("Congratulations! You guessed the correct word with " + \
+    str(6 - count) + " guesses remaining.")
+    print("The correct word was: " + sampleWord)
+    hangman(count)
+# restart function
+    replay = input("Would you like to play again? (Y/N)\n").lower()
+    restart(replay)
     return count
 
 # checks to see if guess is within the list of correct letters, then replaces
@@ -90,6 +122,55 @@ def printBar(guess):
         if correctLetters[char] == guess:
             bar[char] = guess
     print(bar)
+
+# function to visualize hangman
+body = [[' ', ' ', ' '], \
+        [' ', ' ', ' '], \
+        [' ', ' ', ' ']]
+
+def hangman(count):
+    global body
+    if count == 0:
+        pass
+    elif count == 1:
+        body[0][1] = 'O'
+    elif count == 2:
+        body[0][1] = 'O'
+        body[1][1] = '|'
+    elif count == 3:
+        body[0][1] = 'O'
+        body[1][1] = '|'
+        body[1][0] = '/'
+    elif count == 4:
+        body[0][1] = 'O'
+        body[1][1] = '|'
+        body[1][0] = '/'
+        body[1][2] = '\\'
+    elif count == 5:
+        body[0][1] = 'O'
+        body[1][1] = '|'
+        body[1][0] = '/'
+        body[1][2] = '\\'
+        body[2][0] = '/'
+    elif count == 6:
+        body[0][1] = 'O'
+        body[1][1] = '|'
+        body[1][0] = '/'
+        body[1][2] = '\\'
+        body[2][0] = '/'
+        body[2][2] = '\\'
+# setting up statements to print w/o brackets
+    head = ' ' + str(body[0][1])
+    torso = str(body[1][0]) + str(body[1][1]) + str(body[1][2])
+    legs = str(body[2][0]) + ' ' + str(body[2][2])
+    print(' | ', head, torso, legs, sep='\n')
+
+# function to clear hangman()
+def clear_hangman():
+    global body
+    body = [[' ', ' ', ' '], \
+            [' ', ' ', ' '], \
+            [' ', ' ', ' ']]
 
 letters = speller(sampleWord)
 bar = guess_bar(sampleWord)

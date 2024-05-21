@@ -33,6 +33,13 @@ correctLetters = []
 guessedLetters = []
 count = 0
 
+def initialize():
+    global correctLetters, guessedLetters, count, bar
+    correctLetters = []
+    guessedLetters = []
+    count = 0
+    bar = []
+
 # takes word and appends its letters to a list
 def speller(word):
     length = len(word)
@@ -46,16 +53,28 @@ def guess_bar(word):
         bar.append('_')
     return bar
 
+# function to replay hangman
+def restart(replay):
+    if replay == 'y':
+        initialize()
+        sampleWord = choose_word('sowpods.txt')
+        speller(sampleWord)
+        guess_bar(sampleWord)
+        matcher(0)
+    else:
+        return False
+
 # checks for guesses and occupied spaces
 def matcher(count):
 # game over
     while '_' in bar:
         guess = input("Please guess a letter:\n").upper()
-        print(guess)
+#        print(guess)
         if count == 5:
             print("Maximum amount of guesses exceeded. Game over!")
-            print(sampleWord)
-            return count
+            replay = input("The word was: " + sampleWord + "\nWould you " + \
+                            "like to play again? (Y/N)\n")
+            restart(replay.lower())
         if guess in correctLetters and guess not in guessedLetters:
             count += 1
             guessedLetters.append(guess)
@@ -76,10 +95,11 @@ def matcher(count):
             print("Guessed letters:\n" + str(guessedLetters) + "\n")
             print(bar)
 # while all spaces are occupied
-    print("Congratulations! You guessed the correct word in " + \
-    str(count) + " guesses.")
+    replay = input("Congratulations! You spelled the word in " + str(count) +\
+          " guesses.\n\n" + "Would you like to play again? (Y/N)\n")
     print(sampleWord)
-    return count
+    restart(replay)
+    return replay.lower()
 
 # checks to see if guess is within the list of correct letters, then replaces
 # empty space with the guess

@@ -12,17 +12,22 @@ personal_info = {
     "has_a_dog": False
 }
 
+# birthday dictionary from ex33
+birthdays = {'Abe':'05/19/1998', 'Reggie':'06/25/2000', 'Gia':'05/27/1963', \
+             'Aria':'2/20/1970', 'Ryan':'11/09/2010', 'Ian':'05/31/1997'}
+
 file = input("Please enter a .json file to read/modify:\n")
 
 # function that adds requested text to existing file contents
 def write_json(info, file):
-    add = input("\nWhat would you like to add?\nFormat: {'key': 'value'}\n")
+    add = input("\nWhat would you like to add?\nFormat: {'name': 'mm/dd/yyyy'}\
+                \n")
 # seperate by newline
     info += f'\n{add}'
 # opening file for writing
     with open(file, "w") as f:
         json.dump(info, f)
-    print(info)
+    print(f'\n{info}')
 
 # function to view file contents & prompt for modification
 def read_json(file):

@@ -16,4 +16,11 @@ from collections import Counter
 #sandwiches = ["ham", "cheese", "roast beef", "ham", "cheese", "roast beef", "ham"]
 #c = Counter(sandwiches)
 
-# 
+#birthdays = {'Abe':'05/19/1998', 'Reggie':'06/25/2000', 'Gia':'05/27/1963', \
+#             'Aria':'2/20/1970', 'Ryan':'11/09/2010', 'Ian':'05/31/1997'}
+
+# load JSON file
+def load_json(file):
+    with open(file, 'r') as f:
+        info = json.load(f)
+        print(f'\n{info}')

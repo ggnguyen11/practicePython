@@ -6,8 +6,8 @@
 from collections import Counter
 import json
 
-# bokeh plotting library for visualizations
-import bokeh
+# bokeh library for visualizations, need these 3 modules for plots to work
+from bokeh.plotting import figure, show, output_file
 
 # function to read JSON
 def read_json(file):
@@ -19,5 +19,60 @@ def read_json(file):
         keys.append(key)
         values.append(info[key])
     print(values)
-    
-read_json('scientists_bday.json')
+    return values
+
+# function to parse months from mm/dd/yyyy format
+def parse_months(dates):
+# initializing dictionary for mm: month key: value pairs
+    month_values = {
+        "01": "January",
+        "02": "February",
+        "03": "March",
+        "04": "April",
+        "05": "May",
+        "06": "June",
+        "07": "July",
+        "08": "August",
+        "09": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December",
+    }
+    months = []
+    for month in dates:
+# parsing mm value from mm/dd/yyyy
+        id = month[:2]
+        months.append(month_values[id])
+    print(months)
+    return months
+
+# function to count instances of months within list
+def month_counter(list):
+    c = Counter(list)
+    count = []
+    for i in c:
+# month: month count
+        print(f"{i}: {c[i]}")
+        count.append(c[i])
+    return count
+
+# function that uses bokeh to output plot based on inputs x, y
+def plot_months(x, y):
+# specifying output.html file
+    output_file("plot.html")
+# categorical, non-continuous variable
+    x_categories = []
+    y_values = []
+    for month in x:
+        x_categories.append(month)
+    for count in y:
+        y_values.append(count)
+# passing x_range through figure() so bokeh draws categorical axis correctly
+    p = figure(x_range=x_categories)
+    p.vbar(x=x, top=y, width=0.5)
+    show(p)
+
+dates = read_json('scientists_bday.json')
+months = parse_months(dates)
+y = month_counter(months)
+plot_months(months, y)

@@ -64,7 +64,11 @@ def plot_months(x, y):
     x_categories = []
     y_values = []
     for month in x:
-        x_categories.append(month)
+# for multiple counts of same month birthdates
+        if month not in x_categories:
+            x_categories.append(month)
+        else:
+            continue
     for count in y:
         y_values.append(count)
 # passing x_range through figure() so bokeh draws categorical axis correctly

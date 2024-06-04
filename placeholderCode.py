@@ -1,48 +1,41 @@
 # placeholder file to hold code that may be cut/repasted
-def num_bulls(guess):
-    bulls = 0
-    guess_str = str(guess)
-# checking for element within string, but not match case for exact position
-    if (guess_str[0] in answer and guess_str[0] != answer[0]) or \
-        (guess_str[1] in answer and guess_str[1] != answer[1]) or \
-            (guess_str[2] in answer and guess_str[2] != answer[2]) or \
-                (guess_str[3] in answer and guess_str[3] != answer[3]):
-        bulls = 1
-# checking for elements within string: 1st and 2nd, 1st and 3rd, 1st and 4th,
-# 2nd and 3rd, 2nd and 4th, 3rd and 4th
-    elif ((guess_str[0] in answer and guess_str[0] != answer[0]) and \
-        (guess_str[1] in answer and guess_str[1] != answer[1])) or \
-            ((guess_str[0] in answer and guess_str[0] != answer[0]) and \
-        (guess_str[2] in answer and guess_str[2] != answer[2])) or \
-            ((guess_str[0] in answer and guess_str[0] != answer[0]) and \
-        (guess_str[3] in answer and guess_str[3] != answer[3])) or \
-            ((guess_str[1] in answer and guess_str[1] != answer[1]) and \
-        (guess_str[2] in answer and guess_str[2] != answer[1])) or \
-            ((guess_str[1] in answer and guess_str[1] != answer[1]) and \
-        (guess_str[3] in answer and guess_str[3] != answer[3])) or \
-            ((guess_str[2] in answer and guess_str[2] != answer[2]) and \
-        (guess_str[3] in answer and guess_str[3] != answer[3])):
-        bulls = 2
-# checking for elements within string: 1st + 2nd + 3rd, 1st + 2nd + 4th,
-# 1st + 3rd + 4th, 2nd + 3rd + 4th
-    elif ((guess_str[0] in answer and guess_str[0] != answer[0]) and \
-            (guess_str[1] in answer and guess_str[1] != answer[1]) and \
-            (guess_str[2] in answer and guess_str[2] != answer[2])) or \
-            ((guess_str[0] in answer and guess_str[0] != answer[0]) and \
-            (guess_str[1] in answer and guess_str[1] != answer[1]) and \
-            (guess_str[3] in answer and guess_str[3] != answer[3])) or \
-            ((guess_str[0] in answer and guess_str[0] != answer[0]) and \
-            (guess_str[2] in answer and guess_str[2] != answer[2]) and \
-            (guess_str[3] in answer and guess_str[3] != answer[3])) or \
-            ((guess_str[1] in answer and guess_str[1] != answer[1]) and \
-            (guess_str[2] in answer and guess_str[2] != answer[2]) and \
-            (guess_str[3] in answer and guess_str[3] != answer[3])):
-        bulls = 3
-    elif (guess_str[0] in answer and guess_str[0] != answer[0]) and \
-    (guess_str[1] in answer and guess_str[1] != answer[1]) and \
-    (guess_str[2] in answer and guess_str[2] != answer[2]) and \
-    (guess_str[3] in answer and guess_str[3] != answer[3]):
-        bulls = 4
-    return bulls
+# merge sort test code from:
+# https://towardsdatascience.com/understanding-time-complexity-with-python-examples-2bda6e8158a7
 
-# test code
+# DSA guide: https://www.geeksforgeeks.org/python-data-structures-and-algorithms/
+
+def merge_sort(data):
+    if len(data) <= 1:
+        return
+    
+    mid = len(data) // 2
+    left_data = data[:mid]
+    right_data = data[mid:]
+    
+    merge_sort(left_data)
+    merge_sort(right_data)
+    
+    left_index = 0
+    right_index = 0
+    data_index = 0
+    
+    while left_index < len(left_data) and right_index < len(right_data):
+        if left_data[left_index] < right_data[right_index]:
+            data[data_index] = left_data[left_index]
+            left_index += 1
+        else:
+            data[data_index] = right_data[right_index]
+            right_index += 1
+        data_index += 1
+    
+    if left_index < len(left_data):
+        del data[data_index:]
+        data += left_data[left_index:]
+    elif right_index < len(right_data):
+        del data[data_index:]
+        data += right_data[right_index:]
+    
+if __name__ == '__main__':
+    data = [9, 1, 7, 6, 2, 8, 5, 3, 4, 0]
+    merge_sort(data)
+    print(data)

@@ -35,7 +35,8 @@ def merge_sort(data):
         del data[data_index:]
         data += right_data[right_index:]
     
-if __name__ == '__main__':
-    data = [9, 1, 7, 6, 2, 8, 5, 3, 4, 0]
-    merge_sort(data)
-    print(data)
+#if __name__ == '__main__':
+#    data = [9, 1, 7, 6, 2, 8, 5, 3, 4, 0]
+#    merge_sort(data)
+#    print(data)
+
